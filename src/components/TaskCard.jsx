@@ -5,7 +5,6 @@ export const TaskCard = ({ task }) => {
   // 1. Extraemos las funciones del contexto global 
   const { deleteTask, moveTask } = useContext(TaskContext);
 
-  // 2. REQUISITO 5: Estilado dinámico por prioridad 
   // Si la prioridad es "Alta", añadimos un estilo visual distintivo
   const cardStyle = {
     borderLeft: task.priority === 'Alta' ? '6px solid red' : '6px solid #ccc',
@@ -22,7 +21,7 @@ export const TaskCard = ({ task }) => {
       <h4>{task.title}</h4>
       <p><strong>Prioridad:</strong> {task.priority}</p>
       
-      {/* REQUISITO: Mostrar botones de acción  */}
+      {/* Mostrar botones de acción  */}
       <div className="actions">
         {/* Borrar permanentemente */}
         <button onClick={() => deleteTask(task.id)}>Eliminar</button>
