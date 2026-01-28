@@ -7,7 +7,7 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState(() => {
     // 1. Intentamos obtener las tareas guardadas en el navegador
     const savedTasks = localStorage.getItem('kanban-tasks');
-    // 2. Si existen, las transformamos de texto a Array de JS; si no, empezamos con [] [cite: 56]
+    // 2. Si existen, las transformamos de texto a Array de JS; si no, empezamos con []
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
