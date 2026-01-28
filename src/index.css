@@ -1,20 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
 
+/* --- CONFIGURACIÓN DE TEMAS --- */
 :root {
-  --todo-color: #bc13fe;    /* Morado */
-  --progress-color: #05d9e8; /* Cian */
-  --done-color: #39ff14;     /* Verde neón */
-  --high-priority: #ff0055;  /* Rosa/Rojo */
-  --bg-dark: #05010d;
+  /* Colores funcionales constantes */
+  --todo-color: #bc13fe;
+  --progress-color: #05d9e8;
+  --done-color: #39ff14;
+  --high-priority: #ff0055;
+}
+
+/* Variables que cambian según el tema */
+body.dark-theme {
+  --bg-main: #05010d;
+  --text-main: #ffffff;
+  --grid-color: rgba(188, 19, 254, 0.15);
+  --sun-gradient: linear-gradient(var(--high-priority), #ffb700);
+  --sun-shadow: var(--high-priority);
+  --sun-opacity: 1;
+}
+
+body.light-theme {
+  --bg-main: #e0e5ec; /* Gris azulado claro estilo laboratorio */
+  --text-main: #1a1a1a;
+  --grid-color: rgba(5, 217, 232, 0.3); /* Rejilla cyan más visible */
+  --sun-gradient: linear-gradient(#ffb700, #ffffff);
+  --sun-shadow: rgba(0, 0, 0, 0.1);
+  --sun-opacity: 0.3; /* El sol se vuelve un reflejo sutil */
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-dark);
-  color: #fff;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-family: 'Rajdhani', sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* El fondo de rejilla infinito */
@@ -26,14 +47,15 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    linear-gradient(rgba(188, 19, 254, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(188, 19, 254, 0.1) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 40px 40px;
   background-position: center bottom;
   transform-origin: center bottom;
   transform: perspective(500px) rotateX(60deg);
   z-index: -1;
   animation: grid-move 2s linear infinite;
+  transition: background-image 0.5s ease;
 }
 
 @keyframes grid-move {
@@ -50,9 +72,35 @@ body::after {
   transform: translateX(-50%);
   width: 250px;
   height: 250px;
-  background: linear-gradient(var(--high-priority), #ffb700);
+  background: var(--sun-gradient);
   border-radius: 50%;
   z-index: -2;
-  box-shadow: 0 0 50px var(--high-priority);
+  box-shadow: 0 0 50px var(--sun-shadow);
+  opacity: var(--sun-opacity);
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 55%, black 60%, transparent 65%, black 70%, transparent 75%, black 80%, transparent 85%, black 90%, transparent 95%, black 100%);
+  transition: all 0.5s ease;
+}
+/* Color dinámico para cada columna */
+/* Columna Pendientes (To Do) - Morado */
+.column:nth-child(1) h2 {
+  color: var(--todo-color);
+  text-shadow: 0 0 10px var(--todo-color);
+}
+
+/* Columna En Progreso (In Progress) - Cian */
+.column:nth-child(2) h2 {
+  color: var(--progress-color);
+  text-shadow: 0 0 10px var(--progress-color);
+}
+
+/* Columna Completadas (Done) - Verde Neón */
+.column:nth-child(3) h2 {
+  color: var(--done-color);
+  text-shadow: 0 0 10px var(--done-color);
+}
+
+/* Ajuste para Light Mode (menos resplandor para que se lea mejor) */
+.light-theme .column h2 {
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  border-bottom-color: rgba(0,0,0,0.1);
 }
