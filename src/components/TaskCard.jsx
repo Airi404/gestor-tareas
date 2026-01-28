@@ -16,7 +16,8 @@ export const TaskCard = ({ task }) => {
   };
 
   return (
-    <div className="task-card" style={cardStyle}>
+    // En TaskCard.jsx
+     <div className={`task-card ${task.priority === 'Alta' ? 'priority-high' : ''}`}>
       {/* Mostramos Título y Prioridad  */}
       <h4>{task.title}</h4>
       <p><strong>Prioridad:</strong> {task.priority}</p>

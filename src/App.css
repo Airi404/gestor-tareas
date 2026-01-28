@@ -1,42 +1,213 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* --- Centrado del Contenedor Principal --- */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 10;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+/* --- Formulario Estilo Placa Cyberpunk --- */
+.task-form {
+  background: rgba(13, 2, 33, 0.9); /* Fondo ultra oscuro */
+  backdrop-filter: blur(15px);
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border: 2px solid var(--progress-color); /* Borde Cian */
+  position: relative;
+  
+  /* Corte en las esquinas estilo chip */
+  clip-path: polygon(
+    20px 0%, 100% 0%, 100% 0%, 
+    100% calc(100% - 20px), 
+    calc(100% - 20px) 100%, 
+    0% 100%, 0% 100%, 0% 20px
+  );
+  
+  box-shadow: 
+    0 0 30px rgba(5, 217, 232, 0.2), 
+    inset 0 0 15px rgba(5, 217, 232, 0.1);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.read-the-docs {
-  color: #888;
+/* Decoración extra: línea superior de neón */
+.task-form::before {
+  content: "DATA_ENTRY_V.2.0";
+  position: absolute;
+  top: 5px;
+  left: 25px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  color: var(--progress-color);
+  letter-spacing: 2px;
+}
+
+/* --- Inputs Modernizados --- */
+.task-form input, 
+.task-form textarea, 
+.task-form select {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(5, 217, 232, 0.4);
+  padding: 15px;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.task-form input:focus, 
+.task-form textarea:focus {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+  background: rgba(255, 0, 255, 0.05);
+}
+
+/* --- El Botón de Acción --- */
+.task-form button {
+  background: var(--progress-color);
+  color: #000;
+  border: none;
+  padding: 15px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 10px;
+}
+
+.task-form button:hover {
+  background: var(--neon-pink);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--neon-pink);
+}
+
+/* --- Tablero Kanban (Debajo del Form) --- */
+.kanban-board {
+  width: 100%;
+  margin-top: 60px;
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.column {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 4px;
+}
+/* --- Contenedor de Columnas --- */
+.kanban-board {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.column {
+  flex: 1;
+  background: rgba(5, 1, 13, 0.8) !important; /* Fondo oscuro sólido */
+  border: 1px solid rgba(188, 19, 254, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  min-height: 500px;
+  backdrop-filter: blur(10px);
+}
+
+.column h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--cyan-accent) !important;
+  text-shadow: 0 0 10px var(--cyan-accent);
+  border-bottom: 2px solid var(--cyan-accent);
+  padding-bottom: 10px;
+}
+
+/* --- TARJETAS (TASK-CARD) - ELIMINANDO EL BLANCO --- */
+.task-card {
+  background: #0a0a0a !important; /* Forzamos fondo negro */
+  border: 2px solid var(--todo-color) !important;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.2);
+  transition: all 0.3s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px var(--todo-color);
+  border-color: var(--neon-pink) !important;
+}
+
+/* --- TEXTOS (FORZANDO LECTURA) --- */
+.task-card h4 {
+  color: #ffffff !important; /* Blanco puro para el título */
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.task-card p {
+  color: #00f3ff !important; /* Texto cian brillante para descripción */
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.actions button {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid var(--todo-color) !important;
+  padding: 5px 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.actions button:hover {
+  background: var(--todo-color) !important;
+  color: #000 !important;
+  box-shadow: 0 0 15px var(--todo-color);
+}
+
+/* --- ESTADOS POR COLUMNA (OPCIONAL) --- */
+/* Segunda columna (In Progress) en Rosa */
+.column:nth-child(2) .task-card { border-color: var(--high-priority) !important; }
+.column:nth-child(2) .task-card p { color: #ffb3c1 !important; }
+.column:nth-child(2) .actions button { border-color: var(--high-priority) !important; }
+
+/* Tercera columna (Done) en Verde Matrix */
+.column:nth-child(3) .task-card { border-color: var(--done-color) !important; }
+.column:nth-child(3) .task-card p { color: #b7ffd8 !important; }
+.column:nth-child(3) .actions button { border-color: var(--done-color) !important; }
+.priority-high {
+  border-left: 6px solid red !important;
+  /* Puedes añadir un leve parpadeo o sombra para que destaque más */
 }

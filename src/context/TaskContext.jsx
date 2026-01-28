@@ -21,9 +21,19 @@ export const TaskProvider = ({ children }) => {
     // Uso de Spread Operator para mantener la inmutabilidad 
     setTasks([...tasks, { ...task, id: Date.now(), status: 'To Do' }]);
   };
-    return (
+
+  //Borrar tarea permanentemente
+  const deleteTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id));
+  };
+  const moveTask = (id, newStatus) => {
+    setTasks(tasks.map(task => 
+      task.id === id ? { ...task, status: newStatus } : task
+    ));
+  };
+  return (
         // El Provider "emite" los datos (la nube)
-        <TaskContext.Provider value={{ tasks, addTask }}>
+        <TaskContext.Provider value={{ tasks, addTask, deleteTask, moveTask }}>
         {children}
         </TaskContext.Provider>
     );
