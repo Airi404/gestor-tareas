@@ -197,7 +197,6 @@
   box-shadow: 0 0 15px var(--todo-color);
 }
 
-/* --- ESTADOS POR COLUMNA (OPCIONAL) --- */
 /* Segunda columna (In Progress) en Rosa */
 .column:nth-child(2) .task-card { border-color: var(--high-priority) !important; }
 .column:nth-child(2) .task-card p { color: #ffb3c1 !important; }
@@ -209,5 +208,5 @@
 .column:nth-child(3) .actions button { border-color: var(--done-color) !important; }
 .priority-high {
   border-left: 6px solid red !important;
-  /* Puedes añadir un leve parpadeo o sombra para que destaque más */
+
 }
