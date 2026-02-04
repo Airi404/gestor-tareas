@@ -1,10 +1,18 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('');
   // Carga inicial desde localStorage 
+  // 1. ESTADO DEL USUARIO CON PERSISTENCIA 
+  const [user, setUser] = useState(() => {
+    // Intentamos recuperar el usuario guardado en localStorage al cargar la app
+    const savedUser = localStorage.getItem('google-user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   const [tasks, setTasks] = useState(() => {
     // 1. Intentamos obtener las tareas guardadas en el navegador
     const savedTasks = localStorage.getItem('kanban-tasks');
@@ -25,11 +33,31 @@ export const TaskProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('kanban-tasks', JSON.stringify(tasks));
   }, [tasks]);
+  
+ 
+  // --- FUNCIONES DE AUTENTICACIÓN ---
+  const login = (response) => {
+    // Decodificamos el token JWT que nos envía Google
+    const decoded = jwt_decode(response.credential);
+    setUser(decoded);
+    localStorage.setItem('google-user', JSON.stringify(decoded));
+  };
 
- // Función para añadir tareas usando useContext en otros componentes
-  const addTask = (task) => {
-    // Uso de Spread Operator para mantener la inmutabilidad 
-    setTasks([...tasks, { ...task, id: Date.now(), status: 'To Do' }]);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('google-user');
+  }; // Función para añadir tareas usando useContext en otros componentes
+
+
+ const addTask = (task) => {
+    // Usamos el nombre que viene del token de Google (user.name)
+    const newTask = { 
+      ...task, 
+      id: Date.now(), 
+      status: 'To Do',
+      author: user ? user.name : 'Invitado' 
+    };
+    setTasks([...tasks, newTask]);
   };
 
   //Borrar tarea permanentemente
@@ -51,8 +79,11 @@ export const TaskProvider = ({ children }) => {
       searchQuery, 
       setSearchQuery,
       darkMode,
-      toggleDarkMode
-    }}>
+      toggleDarkMode,
+      login,
+      logout,
+      user
+      }}>
       {children}
     </TaskContext.Provider>
   );
