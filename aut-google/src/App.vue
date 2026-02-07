@@ -37,10 +37,8 @@ export default {
     };
 
     googleOneTap(options, (response) => {
-      // Almacenamos el token JWT [cite: 549]
       this.tokenJWT = response.credential;
       
-      // Decodificamos la información del usuario [cite: 556, 590]
       this.datosUsuario = jwt_decode(response.credential);
       
       console.log("Acceso concedido para:", this.datosUsuario.name);
