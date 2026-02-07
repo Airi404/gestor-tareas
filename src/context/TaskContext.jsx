@@ -38,7 +38,7 @@ export const TaskProvider = ({ children }) => {
   // --- FUNCIONES DE AUTENTICACIÓN ---
   const login = (response) => {
     // Decodificamos el token JWT que nos envía Google
-    const decoded = jwt_decode(response.credential);
+    const decoded = jwtDecode(response.credential);     
     setUser(decoded);
     localStorage.setItem('google-user', JSON.stringify(decoded));
   };

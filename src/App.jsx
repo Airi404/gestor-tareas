@@ -47,12 +47,20 @@ function App() {
         }}>Gestor de Tareas</h1>
 
         {user && (
-          <div className="user-profile" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span>{user.name}</span>
-            <img src={user.picture} alt="perfil" style={{ borderRadius: '50%', width: '40px' }} />
-            <button onClick={logout} className="btn-logout">Cerrar Sesión</button>
-          </div>
-        )}
+            <div className="user-profile-cyber">
+              <div className="user-info">
+                <span className="user-status">AUTHORIZED_USER</span>
+                <span className="user-name">{user.name}</span>
+              </div>
+              <div className="avatar-wrapper">
+                <img src={user.picture} alt="perfil" className="user-avatar" />
+                <div className="scan-line"></div>
+              </div>
+              <button onClick={logout} className="btn-logout-cyber">
+                TERMINATE_SESSION
+              </button>
+            </div>
+          )}
       </header>
 
       <ThemeToggle />
