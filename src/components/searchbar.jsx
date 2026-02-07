@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
-
+// Componente para la barra de búsqueda
 export const SearchBar = () => {
   const { searchQuery, setSearchQuery } = useContext(TaskContext);
 

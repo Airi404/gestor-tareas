@@ -26,7 +26,7 @@ export const TaskCard = ({ task }) => {
     
   <div 
       className={`task-card ${task.priority === 'Alta' ? 'priority-high' : ''}`}
-      style={cardStyle} // <--- ¡No olvides aplicar el estilo aquí!
+      style={cardStyle} 
       draggable // <--- Permite que la tarjeta se pueda arrastrar
       onDragStart={handleDragStart}
     >      {/* Mostramos Título y Prioridad  */}

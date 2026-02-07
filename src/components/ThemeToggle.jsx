@@ -5,6 +5,7 @@ export const ThemeToggle = () => {
   const { darkMode, toggleDarkMode } = useContext(TaskContext);
 
   return (
+    // Botón para alternar entre modo oscuro y claro
     <button 
       onClick={toggleDarkMode}
       className={`theme-btn ${darkMode ? 'active' : ''}`}
